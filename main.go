@@ -1,10 +1,13 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"os"
+
 	"github.com/joho/godotenv"
 
-	api "github.com/darksuei/kubeRPC/api"
+	api "github.com/darksuei/kubeRPC-sidecar/api"
 )
 
 func main() {
@@ -19,11 +22,11 @@ func main() {
 	// Health API
 	http.HandleFunc("/health", api.Health)
 
-	fmt.Println("Sidecar running on port: ", port)
+	log.Println("Sidecar running on port: ", port)
 
 	err := http.ListenAndServe(":" + port, nil)
 
 	if err != nil {
-		fmt.Println("Error starting sidecar:", err)
+		log.Println("Error starting sidecar:", err)
 	}
 }
